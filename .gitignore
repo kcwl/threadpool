@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# compile temp file
+*Debug*/
+.vs/
+x64/
+
+
+# vs
+*.user
