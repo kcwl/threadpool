@@ -32,13 +32,14 @@ namespace thread_pool
 			}
 
 		public:
-			bool schedule(const task_t& task)
+			bool schedule(task_t&& task)
 			{
+				std::scoped_lock lk(mutex_);
+
 				if (is_shutdown_.load())
 					return false;
 
-				if (!schedule_.push_back(task))
-					return false;
+				schedule_.push_back(std::forward<task_t>(task));
 
 				cv_.notify_one();
 				return true;
@@ -56,7 +57,12 @@ namespace thread_pool
 						return !schedule_.empty();
 					});
 
-				auto task = schedule_.pop_front();
+				task_t task{};
+
+				schedule_.pop_front(task);
+
+				if (task == nullptr)
+					return true;
 
 				task();
 

@@ -35,9 +35,9 @@ namespace thread_pool
 			return core_ptr_->size();
 		}
 
-		bool schedule(const task_t& task)
+		bool schedule(task_t&& task)
 		{
-			return core_ptr_->schedule(task);
+			return core_ptr_->schedule(std::forward<task_t>(task));
 		}
 
 		bool empty()
@@ -63,6 +63,8 @@ namespace thread_pool
 	using priority_pool = thread_pool<detail::priority_task, priority_scheduler, wait_for_all_task>;
 
 	using pool = thread_pool<detail::task, fifo_scheduler, wait_for_all_task>;
+
+	using multi_pool = thread_pool<detail::task, multi_fifo_schedule, wait_for_all_task>;
 }
 
 
