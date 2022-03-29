@@ -2,6 +2,7 @@
 #include "detail/pool_core.hpp"
 #include "scheduling_policies.hpp"
 #include "shutdown_policies.hpp"
+#include "task.hpp"
 
 namespace thread_pool
 {
@@ -60,11 +61,11 @@ namespace thread_pool
 		std::shared_ptr<core_t> core_ptr_;
 	};
 
-	using priority_pool = thread_pool<detail::priority_task, priority_scheduler, wait_for_all_task>;
+	using priority_pool = thread_pool<priority_task, priority_scheduler, wait_for_all_task>;
 
-	using pool = thread_pool<detail::task, fifo_scheduler, wait_for_all_task>;
+	using pool = thread_pool<task, fifo_scheduler, wait_for_all_task>;
 
-	using multi_pool = thread_pool<detail::task, multi_fifo_schedule, wait_for_all_task>;
+	using multi_pool = thread_pool<task, multi_fifo_schedule, wait_for_all_task>;
 }
 
 

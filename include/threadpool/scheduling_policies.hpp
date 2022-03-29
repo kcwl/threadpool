@@ -6,7 +6,7 @@
 
 namespace thread_pool
 {
-	template<class Task = detail::priority_task>
+	template<class Task>
 	class priority_scheduler
 	{
 	public:

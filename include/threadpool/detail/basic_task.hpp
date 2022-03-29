@@ -1,7 +1,4 @@
 #pragma once
-#include <future>
-#include <functional>
-
 
 namespace thread_pool
 {
@@ -37,10 +34,6 @@ namespace thread_pool
 			Func func_;
 			std::size_t priority_;
 		};
-
-
-		using task = std::function<void()>;
-		using priority_task = basic_task<task>;
 	}
 
 }
