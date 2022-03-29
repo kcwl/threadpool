@@ -2,7 +2,9 @@
 #include <queue>
 #include <functional>
 #include <mutex>
+#include <random>
 #include "detail/basic_task.hpp"
+#include "detail/hash_fnv.hpp"
 
 namespace thread_pool
 {
@@ -106,28 +108,39 @@ namespace thread_pool
 	public:
 		multi_fifo_schedule(std::size_t queue_size = std::thread::hardware_concurrency())
 		{
-			srand(static_cast<unsigned int>(time(nullptr)));
-
 			for (int i = 0; i < queue_size; i++)
 			{
 				queues_.push_back({});
+
+				real_list_.push_back(std::to_string(i));
 			}
+
+			hf_.put_real(real_list_);
 		}
 
 		void push(T&& t)
 		{
-			int id = rand() % queues_.size();
+			auto addr = std::addressof(t);
 
-			push_by_id(std::forward<T>(t), id);
+			auto str_id = hf_.get_node(std::to_string(*reinterpret_cast<int*>(addr)));
+
+			push_by_id(std::forward<T>(t), std::atoi(str_id.data()));
 		}
 
 		bool pop(T& t)
 		{
-			int id = rand() % queues_.size();
+			std::random_device rd;
+			std::mt19937 gen(rd());
 
-			if (queues_.at(id).empty())
-				return false;
+			std::uniform_int_distribution<> dis(0, queues_.size() - 1);
 
+			int id = dis(gen);
+
+			while (queues_.at(id).empty())
+			{
+				++id > queues_.size() - 1 ? id = 0 : 0;
+			}
+				
 			t = queues_.at(id).front();
 
 			queues_.at(id).pop();
@@ -164,5 +177,9 @@ namespace thread_pool
 		std::mutex mutex_;
 
 		std::vector<std::queue<T>> queues_;
+
+		detail::hash_fnv hf_;
+
+		std::vector<std::string> real_list_;
 	};
 }
