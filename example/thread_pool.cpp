@@ -6,10 +6,10 @@
 
 using namespace std::chrono_literals;
 
+thread_pool::multi_pool pl{};
+
 void run()
 {
-    thread_pool::pool pl{};
-
     {
         thread_pool::schedule(pl, []
             {
@@ -62,7 +62,7 @@ void run()
             });
     }
 
-    //pl.close_thread();
+    //pl.close();
 }
 
 

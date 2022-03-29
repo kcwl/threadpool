@@ -50,5 +50,11 @@
     <ClInclude Include="..\include\thread_pool.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\threadpool\task.hpp">
+      <Filter>threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\detail\hash_fnv.hpp">
+      <Filter>threadpool\detail</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
