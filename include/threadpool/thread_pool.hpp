@@ -30,6 +30,11 @@ namespace thread_pool
 			start_thread();
 		}
 
+		virtual ~thread_pool()
+		{
+			close();
+		}
+
 	public:
 		std::size_t size()
 		{
