@@ -15,15 +15,16 @@ namespace thread_pool
 			return queue_.empty();
 		}
 
-		bool push_back(const Task& task)
+		void push(const Task& task)
 		{
 			queue_.push(task);
-
-			return true;
 		}
 
-		bool pop_front(Task& t)
+		bool pop(Task& t)
 		{
+			if (queue_.empty())
+				return false;
+
 			t = queue_.top();
 
 			queue_.pop();
@@ -39,6 +40,11 @@ namespace thread_pool
 			}
 		}
 
+		std::size_t size()
+		{
+			return queue_.size();
+		}
+
 	private:
 		std::priority_queue<Task> queue_;
 	};
@@ -47,17 +53,11 @@ namespace thread_pool
 	class fifo_scheduler
 	{
 	public:
-		fifo_scheduler() = default;
-
-		fifo_scheduler(fifo_scheduler&&) = default;
-	public:
 		void push(T&& t)
 		{
-			{
-				std::scoped_lock lk(mutex_);
+			std::scoped_lock lk(mutex_);
 
-				queue_.push(std::forward<T>(t));
-			}
+			queue_.push(std::forward<T>(t));
 
 			cv_.notify_one();
 		}
@@ -114,14 +114,14 @@ namespace thread_pool
 			}
 		}
 
-		void push_back(T&& t)
+		void push(T&& t)
 		{
 			int id = rand() % queues_.size();
 
 			push_by_id(std::forward<T>(t), id);
 		}
 
-		bool pop_front(T& t)
+		bool pop(T& t)
 		{
 			int id = rand() % queues_.size();
 
@@ -138,6 +138,11 @@ namespace thread_pool
 		bool empty()
 		{
 			return std::all_of(queues_.begin(), queues_.end(), [](auto queue) {return queue.empty(); });
+		}
+
+		std::size_t size()
+		{
+			return queues_.size();
 		}
 
 	private:

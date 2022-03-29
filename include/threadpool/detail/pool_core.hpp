@@ -39,7 +39,7 @@ namespace thread_pool
 				if (is_shutdown_.load())
 					return false;
 
-				schedule_.push_back(std::forward<task_t>(task));
+				schedule_.push(std::forward<task_t>(task));
 
 				cv_.notify_one();
 				return true;
@@ -59,7 +59,7 @@ namespace thread_pool
 
 				task_t task{};
 
-				schedule_.pop_front(task);
+				schedule_.pop(task);
 
 				if (task == nullptr)
 					return true;
