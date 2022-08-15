@@ -117,9 +117,10 @@ namespace thread_pool
 			schedule_t schedule_;
 
 			std::vector<std::shared_ptr<std::thread>> threads_;
-			std::condition_variable cv_;
 
-			mutable std::mutex mutex_;
+			std::condition_variable_any cv_;
+
+			mutable std::recursive_mutex mutex_;
 
 			std::atomic_bool is_shutdown_;
 		};
