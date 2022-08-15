@@ -132,7 +132,7 @@ namespace thread_pool
 			std::random_device rd;
 			std::mt19937 gen(rd());
 
-			std::uniform_int_distribution<> dis(0, queues_.size() - 1);
+			std::uniform_int_distribution<> dis(0, static_cast<int>(queues_.size() - 1));
 
 			int id = dis(gen);
 
