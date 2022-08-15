@@ -53,7 +53,7 @@
     <ClInclude Include="..\include\threadpool\task.hpp">
       <Filter>threadpool</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\threadpool\detail\hash_fnv.hpp">
+    <ClInclude Include="..\include\threadpool\detail\hash_node.hpp">
       <Filter>threadpool\detail</Filter>
     </ClInclude>
   </ItemGroup>

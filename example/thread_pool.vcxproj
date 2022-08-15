@@ -163,7 +163,7 @@
     <ClCompile Include="thread_pool.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\threadpool\detail\hash_fnv.hpp" />
+    <ClInclude Include="..\include\threadpool\detail\hash_node.hpp" />
     <ClInclude Include="..\include\threadpool\detail\noncopyable.hpp" />
     <ClInclude Include="..\include\threadpool\detail\pool_core.hpp" />
     <ClInclude Include="..\include\threadpool\pool_adaptors.hpp" />

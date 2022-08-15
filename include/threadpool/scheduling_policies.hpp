@@ -4,7 +4,7 @@
 #include <mutex>
 #include <random>
 #include "detail/basic_task.hpp"
-#include "detail/hash_fnv.hpp"
+#include "detail/hash_node.hpp"
 
 namespace thread_pool
 {
@@ -188,7 +188,7 @@ namespace thread_pool
 
 		std::vector<std::queue<T>> queues_;
 
-		detail::hash_fnv hf_;
+		detail::hash_node hf_;
 
 		std::vector<std::string> real_list_;
 	};
