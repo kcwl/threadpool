@@ -4,7 +4,7 @@ namespace thread_pool
 {
 	namespace detail
 	{
-		template<class Func>
+		template<typename Func>
 		class basic_task
 		{
 			static_assert(std::is_function_v<Func>, "Func must be std::function!");

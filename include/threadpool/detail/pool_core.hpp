@@ -13,9 +13,9 @@ namespace thread_pool
 {
 	namespace detail
 	{
-		template<class Task,
-			template<class> class Schedule,
-			template<class> class Shutdown>
+		template<typename Task,
+			template<typename> typename Schedule,
+			template<typename> typename Shutdown>
 		class pool_core
 			: public std::enable_shared_from_this<pool_core<Task, Schedule, Shutdown>>
 			, public noncopyable

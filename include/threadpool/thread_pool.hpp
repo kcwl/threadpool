@@ -7,9 +7,9 @@
 namespace thread_pool
 {
 	template<
-		class Task,
-		template<class> class Schedule,
-		template<class> class Shutdown
+		typename Task,
+		template<typename> typename Schedule,
+		template<typename> typename Shutdown
 	>
 		class thread_pool
 	{

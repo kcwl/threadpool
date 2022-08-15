@@ -8,7 +8,7 @@
 
 namespace thread_pool
 {
-	template<class Task>
+	template<typename Task>
 	class priority_scheduler
 	{
 	public:
