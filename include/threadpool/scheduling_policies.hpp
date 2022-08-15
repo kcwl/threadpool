@@ -80,6 +80,16 @@ namespace thread_pool
 			return true;
 		}
 
+		void clear()
+		{
+			std::scoped_lock lk(mutex_);
+
+			while (!queue_.empty())
+			{
+				queue_.pop();
+			}
+		}
+
 		std::size_t size()
 		{
 			std::scoped_lock lk(mutex_);
