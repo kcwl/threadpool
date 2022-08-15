@@ -57,19 +57,11 @@ namespace thread_pool
 	public:
 		void push(T&& t)
 		{
-			std::scoped_lock lk(mutex_);
-
 			queue_.push(std::forward<T>(t));
-
-			cv_.notify_one();
 		}
 
 		bool pop(T& t)
 		{
-			std::unique_lock lk(mutex_);
-
-			cv_.wait(lk, [&] {return !queue_.empty(); });
-
 			if (queue_.empty())
 				return false;
 
@@ -82,8 +74,6 @@ namespace thread_pool
 
 		void clear()
 		{
-			std::scoped_lock lk(mutex_);
-
 			while (!queue_.empty())
 			{
 				queue_.pop();
@@ -92,24 +82,16 @@ namespace thread_pool
 
 		std::size_t size()
 		{
-			std::scoped_lock lk(mutex_);
-
 			return queue_.size();
 		}
 
 		bool empty()
 		{
-			std::scoped_lock lk(mutex_);
-
 			return queue_.empty();
 		}
 
 	private:
 		std::queue<T> queue_;
-
-		std::mutex mutex_;
-
-		std::condition_variable cv_;
 	};
 
 	template<typename T>
@@ -171,21 +153,15 @@ namespace thread_pool
 	private:
 		void push_by_id(T&& t, std::size_t id)
 		{
-			std::scoped_lock lk(mutex_);
-
 			queues_.at(id).push(std::forward<T>(t));
 		}
 
 		bool pop_by_id(T& t, std::size_t id)
 		{
-			std::scoped_lock lk(mutex_);
-
 			return queues_.at(id).pop(t);
 		}
 
 	private:
-		std::mutex mutex_;
-
 		std::vector<std::queue<T>> queues_;
 
 		detail::hash_node hf_;
