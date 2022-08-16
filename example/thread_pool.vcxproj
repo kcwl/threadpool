@@ -166,6 +166,7 @@
     <ClInclude Include="..\include\threadpool\detail\hash_node.hpp" />
     <ClInclude Include="..\include\threadpool\detail\noncopyable.hpp" />
     <ClInclude Include="..\include\threadpool\detail\pool_core.hpp" />
+    <ClInclude Include="..\include\threadpool\detail\work_thread.hpp" />
     <ClInclude Include="..\include\threadpool\pool_adaptors.hpp" />
     <ClInclude Include="..\include\threadpool\scheduling_policies.hpp" />
     <ClInclude Include="..\include\threadpool\shutdown_policies.hpp" />

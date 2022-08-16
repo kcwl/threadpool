@@ -3,10 +3,10 @@
 #include <vector>
 #include <mutex>
 #include <utility>
-#include <thread>
 #include <functional>
 #include <condition_variable>
 #include "noncopyable.hpp"
+#include "work_thread.hpp"
 
 
 namespace thread_pool
@@ -24,6 +24,7 @@ namespace thread_pool
 			using task_t = Task;
 			using pool_t = pool_core<Task, Schedule, Shutdown>;
 			using schedule_t = Schedule<task_t>;
+			using thread_t = work_thread<pool_t>;
 
 			pool_core(std::size_t thread_size = std::thread::hardware_concurrency() * 2)
 				: thread_size_(thread_size)
@@ -34,14 +35,15 @@ namespace thread_pool
 		public:
 			bool schedule(task_t&& task)
 			{
-				std::scoped_lock lk(mutex_);
+				std::unique_lock lk(mutex_);
 
 				if (is_shutdown_.load())
 					return false;
 
 				schedule_.push(std::forward<task_t>(task));
 
-				cv_.notify_one();
+				cv_.notify_all();
+
 				return true;
 			}
 
@@ -75,7 +77,7 @@ namespace thread_pool
 
 				for (auto& iter : threads_)
 				{
-					iter.reset(new std::thread(std::bind(&pool_core::execute,this)));
+					iter.reset(new thread_t(this->shared_from_this()));
 				}
 			}
 
@@ -87,11 +89,6 @@ namespace thread_pool
 			void wait()
 			{
 				cv_.notify_all();
-
-				while (!schedule_.empty())
-				{
-					execute();
-				}
 			}
 
 			void close()
@@ -116,7 +113,7 @@ namespace thread_pool
 
 			schedule_t schedule_;
 
-			std::vector<std::shared_ptr<std::thread>> threads_;
+			std::vector<std::shared_ptr<thread_t>> threads_;
 
 			std::condition_variable_any cv_;
 
