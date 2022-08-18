@@ -41,9 +41,10 @@ namespace thread_pool
 			return core_ptr_->size();
 		}
 
-		bool schedule(task_t&& task)
+		template<typename _Func, typename... _Args>
+		auto schedule(_Func&& f, _Args&&... args)
 		{
-			return core_ptr_->schedule(std::forward<task_t>(task));
+			return core_ptr_->schedule(std::forward<_Func>(f), std::forward<_Args>(args)...);
 		}
 
 		bool empty()
@@ -66,11 +67,11 @@ namespace thread_pool
 		std::shared_ptr<core_t> core_ptr_;
 	};
 
-	using priority_pool = thread_pool<priority_task, priority_scheduler, wait_for_all_task>;
+	using priority_pool = thread_pool<default_priority_task, priority_scheduler, wait_for_all_task>;
 
-	using pool = thread_pool<task, fifo_scheduler, wait_for_all_task>;
+	using pool = thread_pool<default_task, fifo_scheduler, wait_for_all_task>;
 
-	using multi_pool = thread_pool<task, multi_fifo_schedule, wait_for_all_task>;
+	using multi_pool = thread_pool<default_task, multi_fifo_schedule, wait_for_all_task>;
 }
 
 

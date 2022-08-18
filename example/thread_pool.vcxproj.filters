@@ -59,5 +59,8 @@
     <ClInclude Include="..\include\threadpool\detail\work_thread.hpp">
       <Filter>threadpool\detail</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\threadpool\task_traits.hpp">
+      <Filter>threadpool</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

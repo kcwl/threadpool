@@ -1,12 +1,14 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <future>
 #include <mutex>
 #include <utility>
 #include <functional>
 #include <condition_variable>
 #include "noncopyable.hpp"
 #include "work_thread.hpp"
+#include "../task_traits.hpp"
 
 
 namespace thread_pool
@@ -33,18 +35,19 @@ namespace thread_pool
 			}
 
 		public:
-			bool schedule(task_t&& task)
+			template<typename _Func, typename... _Args>
+			auto schedule(_Func&& func, _Args&&... args) ->std::future<task_result_t<task_t, _Func, _Args...>>
 			{
 				std::unique_lock lk(mutex_);
 
 				if (is_shutdown_.load())
-					return false;
+					return std::future<task_result_t<task_t, _Func, _Args...>>{};
 
-				schedule_.push(std::forward<task_t>(task));
+				auto future = use_task<task_t>()(schedule_, std::forward<_Func>(func), std::forward<_Args>(args)...);
 
-				cv_.notify_all();
+				cv_.notify_one();
 
-				return true;
+				return future;
 			}
 
 			bool execute()
@@ -62,9 +65,6 @@ namespace thread_pool
 				task_t task{};
 
 				schedule_.pop(task);
-
-				if (task == nullptr)
-					return true;
 
 				task();
 

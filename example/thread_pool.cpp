@@ -12,7 +12,8 @@ int main()
         thread_pool::pool pl{10};
 
         for (int i = 0; i < 100000; i++)
-            pl.schedule([]
+        {
+           auto future = pl.schedule([]()
                 {
                     //std::random_device rd;
                     //std::mt19937 gen(rd());
@@ -25,6 +26,10 @@ int main()
 
                     std::cout << "[" << std::this_thread::get_id() << "]" << "the task on this thread is completed!" << std::endl;
                 });
+
+           future.get();
+        }
+            
     }
     
 
