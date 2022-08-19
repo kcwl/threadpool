@@ -54,13 +54,22 @@ namespace thread_pool
 			{
 				std::unique_lock lk(mutex_);
 
-				if (is_shutdown_.load())
-					return false;
+				while (schedule_.empty())
+				{
+					active_thread_count_--;
 
-				cv_.wait(lk, [this]
-					{
-						return !schedule_.empty();
-					});
+					ternimate_cv_.notify_all();
+
+					cv_.wait(lk, [this] 
+						{
+							return !schedule_.empty() || is_shutdown_;
+						});
+
+					if (is_shutdown_.load())
+						return false;
+
+					active_thread_count_++;
+				}
 
 				task_t task{};
 
@@ -79,6 +88,8 @@ namespace thread_pool
 				{
 					iter.reset(new thread_t(this->shared_from_this()));
 				}
+
+				active_thread_count_ = thread_size_;
 			}
 
 			void clear()
@@ -88,7 +99,21 @@ namespace thread_pool
 
 			void wait()
 			{
-				cv_.notify_all();
+				std::unique_lock lk(mutex_);
+
+				auto self = this->shared_from_this();
+
+				ternimate_cv_.wait(lk, [self, this]()
+					{ 
+						return schedule_.empty() && active_thread_count_ == 0;
+					});
+			}
+
+			void work_complete()
+			{
+				std::unique_lock lk(mutex_);
+
+				active_thread_count_--;
 			}
 
 			void close()
@@ -120,6 +145,10 @@ namespace thread_pool
 			mutable std::recursive_mutex mutex_;
 
 			std::atomic_bool is_shutdown_;
+
+			std::condition_variable_any ternimate_cv_;
+
+			std::size_t active_thread_count_;
 		};
 	}
 }
