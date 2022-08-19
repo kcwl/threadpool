@@ -50,5 +50,17 @@
     <ClInclude Include="..\include\thread_pool.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\threadpool\task.hpp">
+      <Filter>threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\detail\hash_node.hpp">
+      <Filter>threadpool\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\detail\work_thread.hpp">
+      <Filter>threadpool\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\detail\task_traits.hpp">
+      <Filter>threadpool\detail</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -109,7 +109,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)..\include</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,12 +163,16 @@
     <ClCompile Include="thread_pool.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\threadpool\detail\hash_node.hpp" />
     <ClInclude Include="..\include\threadpool\detail\noncopyable.hpp" />
     <ClInclude Include="..\include\threadpool\detail\pool_core.hpp" />
+    <ClInclude Include="..\include\threadpool\detail\work_thread.hpp" />
     <ClInclude Include="..\include\threadpool\pool_adaptors.hpp" />
     <ClInclude Include="..\include\threadpool\scheduling_policies.hpp" />
     <ClInclude Include="..\include\threadpool\shutdown_policies.hpp" />
     <ClInclude Include="..\include\threadpool\detail\basic_task.hpp" />
+    <ClInclude Include="..\include\threadpool\task.hpp" />
+    <ClInclude Include="..\include\threadpool\detail\task_traits.hpp" />
     <ClInclude Include="..\include\threadpool\thread_pool.hpp" />
     <ClInclude Include="..\include\thread_pool.hpp" />
   </ItemGroup>
