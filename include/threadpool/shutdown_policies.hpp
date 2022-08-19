@@ -24,4 +24,26 @@ namespace thread_pool
 			pool->shutdown();
 		}
 	};
+
+	template<typename Pool>
+	struct wait_task_for
+	{
+		template<typename _Time>
+		static void shutdown(std::shared_ptr<Pool> pool, const _Time& tm)
+		{
+			pool->wait_for(tm);
+			pool->shutdown();
+		}
+	};
+
+	template<typename Pool>
+	struct wait_task_until
+	{
+		template<typename _Time>
+		static void shutdown(std::shared_ptr<Pool> pool, const _Time& tm)
+		{
+			pool->wait_until(tm);
+			pool->shutdown();
+		}
+	};
 }

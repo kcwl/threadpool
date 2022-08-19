@@ -109,6 +109,18 @@ namespace thread_pool
 					});
 			}
 
+			template<typename _Time>
+			void wait_for(const _Time& tm)
+			{
+
+			}
+
+			template<typename _Time>
+			void wait_until(const _Time& tm)
+			{
+
+			}
+
 			void work_complete()
 			{
 				std::unique_lock lk(mutex_);
