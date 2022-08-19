@@ -18,7 +18,7 @@ namespace thread_pool
 
 				auto future = task_ptr->get_future();
 
-				default_task task([tk = std::move(task_ptr)]{ (*tk)(); });
+				_Task task([tk = std::move(task_ptr)]{ (*tk)(); });
 
 				schedule.push(std::move(task));
 
@@ -38,7 +38,7 @@ namespace thread_pool
 
 				auto future = task_ptr->get_future();
 
-				default_priority_task task([tk = std::move(task_ptr)]{ (*tk)(); }, std::forward<std::size_t>(priority));
+				basic_priority_task<_Func1> task([tk = std::move(task_ptr)]{ (*tk)(); }, std::forward<std::size_t>(priority));
 
 				schedule.push(std::move(task));
 
@@ -64,8 +64,8 @@ namespace thread_pool
 			using type = std::invoke_result_t<_Func, _Args...>;
 		};
 
-		template<typename _Func, typename... _Args>
-		struct task_result<default_priority_task, _Func, _Args...>
+		template<typename _TaskFunc, typename _Func, typename... _Args>
+		struct task_result<basic_priority_task<_TaskFunc>, _Func, _Args...>
 		{
 			template<typename... _Args1>
 			constexpr static auto task_type(_Func&&, _Args1&&..., std::size_t) ->std::invoke_result_t<_Func, _Args1...>
