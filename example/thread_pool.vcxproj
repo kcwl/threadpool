@@ -172,7 +172,7 @@
     <ClInclude Include="..\include\threadpool\shutdown_policies.hpp" />
     <ClInclude Include="..\include\threadpool\detail\basic_task.hpp" />
     <ClInclude Include="..\include\threadpool\task.hpp" />
-    <ClInclude Include="..\include\threadpool\task_traits.hpp" />
+    <ClInclude Include="..\include\threadpool\detail\task_traits.hpp" />
     <ClInclude Include="..\include\threadpool\thread_pool.hpp" />
     <ClInclude Include="..\include\thread_pool.hpp" />
   </ItemGroup>

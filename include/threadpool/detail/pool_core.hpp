@@ -8,7 +8,7 @@
 #include <condition_variable>
 #include "noncopyable.hpp"
 #include "work_thread.hpp"
-#include "../task_traits.hpp"
+#include "task_traits.hpp"
 
 
 namespace thread_pool
