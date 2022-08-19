@@ -6,71 +6,32 @@
 
 using namespace std::chrono_literals;
 
-void run()
-{
-    thread_pool::pool pl{};
-
-    {
-        thread_pool::schedule(pl, []
-            {
-                std::cout << "[" << std::this_thread::get_id() << "]" << "hello world -- 1" << std::endl;
-            });
-
-        //std::this_thread::sleep_for(2s);
-        // pl.schedule([] { std::cout << "hello world -- 1" << std::endl; });
-
-        //pl.schedule([] { std::cout << "hello world -- 2" << std::endl; });
-        thread_pool::schedule(pl, []
-            {
-                int i = 20;
-                while(i--)
-                {
-                    std::cout << "[" << std::this_thread::get_id() << "]" << "hello world -- 2" << std::endl;
-                    //std::this_thread::sleep_for(10s);
-                }
-            });
-
-        //std::this_thread::sleep_for(2s);
-        //pl.schedule([] { std::cout << "hello world -- 3" << std::endl; });
-       thread_pool::schedule(pl, []
-            {
-                std::cout << "[" << std::this_thread::get_id() << "]" << "hello world -- 3" << std::endl;
-            });
-
-        //std::this_thread::sleep_for(2s);
-
-        //pl.schedule([] { std::cout << "hello world -- 4" << std::endl; });
-        thread_pool::schedule(pl, []
-            {
-                std::cout << "[" << std::this_thread::get_id() << "]" << "hello world -- 4" << std::endl;
-            });
-
-        //std::this_thread::sleep_for(2s);
-
-        //pl.schedule([] { std::cout << "hello world -- 5" << std::endl; });
-        thread_pool::schedule(pl, []
-            {
-                std::cout << "[" << std::this_thread::get_id() << "]" << "hello world -- 5" << std::endl;
-            });
-
-        //std::this_thread::sleep_for(2s);
-
-        //pl.schedule([] { std::cout << "hello world -- 6" << std::endl; });
-        thread_pool::schedule(pl, []
-            {
-                std::cout << "[" << std::this_thread::get_id() << "]" << "hello world -- 6" << std::endl;
-            });
-    }
-
-    //pl.close_thread();
-}
-
-
 int main()
 {
- 
-    std::thread t(run);
-    t.join();
+    {
+        thread_pool::pool pl{10};
+
+        for (int i = 0; i < 100000; i++)
+        {
+           auto future = pl.schedule([]()
+                {
+                    //std::random_device rd;
+                    //std::mt19937 gen(rd());
+
+                    //std::uniform_int_distribution dis(0, 20);
+
+                    //auto second = dis(gen);
+
+                    //std::this_thread::sleep_for(std::chrono::seconds(second));
+
+                    std::cout << "[" << std::this_thread::get_id() << "]" << "the task on this thread is completed!" << std::endl;
+                });
+
+           future.get();
+        }
+            
+    }
+    
 
     std::cin.get();
 }

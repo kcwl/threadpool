@@ -1,31 +1,24 @@
 #pragma once
-#include <future>
-#include <functional>
-
 
 namespace thread_pool
 {
 	namespace detail
 	{
-		template<class Func>
+		template<typename _Func>
 		class basic_task
 		{
-			static_assert(std::is_function_v<Func>, "Func must be std::function!");
-
 		public:
-			basic_task(std::size_t priority, Func f)
-				: func_(f)
-				, priority_(priority)
+			basic_task() = default;
+
+			basic_task(_Func&& func)
+				: func_(std::forward<_Func>(func))
 			{
+
 			}
 
-		public:
-			bool operator<(const basic_task& rhs) const
-			{
-				return priority_ < rhs.priority_;
-			}
+			virtual ~basic_task() = default;
 
-			void operator()(void) const
+			void operator()()
 			{
 				if (func_)
 				{
@@ -33,14 +26,32 @@ namespace thread_pool
 				}
 			}
 
-		private:
-			Func func_;
-			std::size_t priority_;
+		protected:
+			_Func func_;
 		};
 
+		template<typename Func>
+		class basic_priority_task : public basic_task<Func>
+		{
+		public:
+			basic_priority_task() = default;
 
-		using task = std::function<void()>;
-		using priority_task = basic_task<task>;
+			basic_priority_task(Func&& f, std::size_t&& priority)
+				: basic_task<Func>(std::forward<Func>(f))
+				, priority_(priority)
+			{
+
+			}
+
+		public:
+			bool operator<(const basic_priority_task& rhs) const
+			{
+				return priority_ < rhs.priority_;
+			}
+
+		private:
+			std::size_t priority_;
+		};
 	}
 
 }
