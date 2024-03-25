@@ -172,11 +172,18 @@
     <ClInclude Include="..\include\threadpool\core\core.hpp" />
     <ClInclude Include="..\include\threadpool\core\pool.hpp" />
     <ClInclude Include="..\include\threadpool\core\work.hpp" />
-    <ClInclude Include="..\include\threadpool\police\scheduling.hpp" />
-    <ClInclude Include="..\include\threadpool\police\shutdown.hpp" />
+    <ClInclude Include="..\include\threadpool\shutdown\wait_all.hpp" />
     <ClInclude Include="..\include\threadpool\adaptors.hpp" />
+    <ClInclude Include="..\include\threadpool\schedule\fifo.hpp" />
+    <ClInclude Include="..\include\threadpool\schedule\priority.hpp" />
+    <ClInclude Include="..\include\threadpool\shutdown\wait_active.hpp" />
+    <ClInclude Include="..\include\threadpool\shutdown\wait_for.hpp" />
+    <ClInclude Include="..\include\threadpool\shutdown\wait_until.hpp" />
     <ClInclude Include="..\include\threadpool\task.hpp" />
     <ClInclude Include="..\include\thread_pool.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\include\threadpool\schedule\multi_fifo.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

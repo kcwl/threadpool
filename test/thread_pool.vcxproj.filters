@@ -22,7 +22,10 @@
     <Filter Include="include\threadpool\core">
       <UniqueIdentifier>{384604d9-205e-4466-a505-db7647b57865}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\threadpool\police">
+    <Filter Include="include\threadpool\schedule">
+      <UniqueIdentifier>{3be9d373-75b4-4e02-abe0-b8417b9a77bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\threadpool\shutdown">
       <UniqueIdentifier>{0b43c296-4357-4023-87ce-8f8c794907ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -47,11 +50,8 @@
     <ClInclude Include="..\include\threadpool\core\work.hpp">
       <Filter>include\threadpool\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\threadpool\police\scheduling.hpp">
-      <Filter>include\threadpool\police</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\threadpool\police\shutdown.hpp">
-      <Filter>include\threadpool\police</Filter>
+    <ClInclude Include="..\include\threadpool\shutdown\wait_all.hpp">
+      <Filter>include\threadpool\shutdown</Filter>
     </ClInclude>
     <ClInclude Include="..\include\thread_pool.hpp">
       <Filter>include</Filter>
@@ -65,5 +65,25 @@
     <ClInclude Include="..\include\threadpool\core\concepts.hpp">
       <Filter>include\threadpool\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\threadpool\schedule\priority.hpp">
+      <Filter>include\threadpool\schedule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\schedule\fifo.hpp">
+      <Filter>include\threadpool\schedule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\shutdown\wait_for.hpp">
+      <Filter>include\threadpool\shutdown</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\shutdown\wait_until.hpp">
+      <Filter>include\threadpool\shutdown</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\shutdown\wait_active.hpp">
+      <Filter>include\threadpool\shutdown</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\include\threadpool\schedule\multi_fifo.hpp">
+      <Filter>include\threadpool\schedule</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,8 +1,13 @@
 #pragma once
 #include "threadpool/adaptors.hpp"
 #include "threadpool/core/pool.hpp"
-#include "threadpool/police/scheduling.hpp"
-#include "threadpool/police/shutdown.hpp"
+#include "threadpool/schedule/fifo.hpp"
+#include "threadpool/schedule/multi_fifo.hpp"
+#include "threadpool/schedule/priority.hpp"
+#include "threadpool/shutdown/wait_active.hpp"
+#include "threadpool/shutdown/wait_all.hpp"
+#include "threadpool/shutdown/wait_for.hpp"
+#include "threadpool/shutdown/wait_until.hpp"
 #include "threadpool/task.hpp"
 
 namespace thread_pool

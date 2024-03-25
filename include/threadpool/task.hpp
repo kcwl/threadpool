@@ -15,8 +15,17 @@ namespace thread_pool
 
 			template <typename _Func>
 			basic_task(_Func&& func)
-				: func_(std::forward<_Func>(func))
+				: func_(std::move(func))
 			{}
+
+			basic_task(basic_task&& other)
+				: func_(std::move(other.func_))
+			{
+
+			}
+
+			basic_task(const basic_task&) = default;
+			basic_task& operator=(const basic_task&) = default;
 
 		public:
 			void operator()()
