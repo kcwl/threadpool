@@ -1,14 +1,12 @@
 #pragma once
-#include <queue>
 #include <functional>
 #include <mutex>
+#include <queue>
 #include <random>
-#include "detail/basic_task.hpp"
-#include "detail/hash_node.hpp"
 
 namespace thread_pool
 {
-	template<typename Task>
+	template <typename _Task>
 	class priority_scheduler
 	{
 	public:
@@ -17,12 +15,12 @@ namespace thread_pool
 			return queue_.empty();
 		}
 
-		void push(const Task& task)
+		void push(const _Task& task)
 		{
 			queue_.push(task);
 		}
 
-		bool pop(Task& t)
+		bool pop(_Task& t)
 		{
 			if (queue_.empty())
 				return false;
@@ -48,19 +46,19 @@ namespace thread_pool
 		}
 
 	private:
-		std::priority_queue<Task> queue_;
+		std::priority_queue<_Task> queue_;
 	};
 
-	template<typename T>
+	template <typename _Task>
 	class fifo_scheduler
 	{
 	public:
-		void push(T&& t)
+		void push(_Task&& t)
 		{
-			queue_.push(std::forward<T>(t));
+			queue_.push(std::forward<_Task>(t));
 		}
 
-		bool pop(T& t)
+		bool pop(_Task& t)
 		{
 			if (queue_.empty())
 				return false;
@@ -91,35 +89,25 @@ namespace thread_pool
 		}
 
 	private:
-		std::queue<T> queue_;
+		std::queue<_Task> queue_;
 	};
 
-	template<typename T>
+	template <typename _Task>
 	class multi_fifo_schedule
 	{
 	public:
 		multi_fifo_schedule(std::size_t queue_size = std::thread::hardware_concurrency())
+			: queues_(queue_size)
+		{}
+
+		void push(_Task&& t)
 		{
-			for (int i = 0; i < queue_size; i++)
-			{
-				queues_.push_back({});
+			auto index = find_less();
 
-				real_list_.push_back(std::to_string(i));
-			}
-
-			hf_.put_real(real_list_);
+			queues_[index].push(std::forward<_Task>(t));
 		}
 
-		void push(T&& t)
-		{
-			auto addr = std::addressof(t);
-
-			auto str_id = hf_.get_node(std::to_string(*reinterpret_cast<int*>(addr)));
-
-			push_by_id(std::forward<T>(t), std::atoi(str_id.data()));
-		}
-
-		bool pop(T& t)
+		bool pop(_Task& t)
 		{
 			std::random_device rd;
 			std::mt19937 gen(rd());
@@ -132,7 +120,7 @@ namespace thread_pool
 			{
 				++id > queues_.size() - 1 ? id = 0 : 0;
 			}
-				
+
 			t = queues_.at(id).front();
 
 			queues_.at(id).pop();
@@ -142,7 +130,7 @@ namespace thread_pool
 
 		bool empty()
 		{
-			return std::all_of(queues_.begin(), queues_.end(), [](auto queue) {return queue.empty(); });
+			return std::all_of(queues_.begin(), queues_.end(), [](auto queue) { return queue.empty(); });
 		}
 
 		std::size_t size()
@@ -151,21 +139,45 @@ namespace thread_pool
 		}
 
 	private:
-		void push_by_id(T&& t, std::size_t id)
+		std::size_t find_less()
 		{
-			queues_.at(id).push(std::forward<T>(t));
+			std::size_t total{};
+			int index = 0;
+
+			for (std::size_t i = 0; i < queues_.size(); ++i)
+			{
+				if (queues_[i].size() > total)
+					continue;
+
+				total = queues_[i].size();
+
+				index = i;
+			}
+
+			return index;
 		}
 
-		bool pop_by_id(T& t, std::size_t id)
+		std::size_t find_large()
 		{
-			return queues_.at(id).pop(t);
+			std::size_t total{};
+			int index = 0;
+
+			for (std::size_t i = 0; i < queues_.size(); ++i)
+			{
+				if (queues_[i].size() < total)
+					continue;
+
+				total = queues_[i].size();
+
+				index = i;
+			}
+
+			return index;
 		}
 
 	private:
-		std::vector<std::queue<T>> queues_;
-
-		detail::hash_node hf_;
+		std::vector<std::queue<_Task>> queues_;
 
 		std::vector<std::string> real_list_;
 	};
-}
+} // namespace thread_pool

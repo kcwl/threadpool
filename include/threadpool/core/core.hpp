@@ -1,47 +1,42 @@
 #pragma once
-#include <memory>
-#include <vector>
+#include "concepts.hpp"
+#include "noncopyable.hpp"
+#include "work.hpp"
+#include <condition_variable>
+#include <functional>
 #include <future>
+#include <memory>
 #include <mutex>
 #include <utility>
-#include <functional>
-#include <condition_variable>
-#include "noncopyable.hpp"
-#include "work_thread.hpp"
-#include "task_traits.hpp"
-
+#include <vector>
 
 namespace thread_pool
 {
-	namespace detail
+	namespace impl
 	{
-		template<typename Task,
-			template<typename> typename Schedule,
-			template<typename> typename Shutdown>
-		class pool_core
-			: public std::enable_shared_from_this<pool_core<Task, Schedule, Shutdown>>
-			, public noncopyable
+		template <typename _Task, template <typename> typename _Schedule, template <typename> typename _Shutdown>
+		class pool_core : public std::enable_shared_from_this<pool_core<_Task, _Schedule, _Shutdown>>,
+						  public noncopyable
 		{
 		public:
-			using task_t = Task;
-			using pool_t = pool_core<Task, Schedule, Shutdown>;
-			using schedule_t = Schedule<task_t>;
+			using task_t = _Task;
+			using pool_t = pool_core<_Task, _Schedule, _Shutdown>;
+			using schedule_t = _Schedule<task_t>;
 			using thread_t = work_thread<pool_t>;
 
 			pool_core(std::size_t thread_size = std::thread::hardware_concurrency() * 2)
 				: thread_size_(thread_size)
 				, is_shutdown_(false)
-			{
-			}
+			{}
 
 		public:
-			template<typename _Func, typename... _Args>
-			auto schedule(_Func&& func, _Args&&... args) ->std::future<task_result_t<task_t, _Func, _Args...>>
+			template <typename _Func, typename... _Args>
+			auto schedule(_Func&& func, _Args&&... args) -> std::future<task_result_t<_Func, _Args...>>
 			{
 				std::unique_lock lk(mutex_);
 
 				if (is_shutdown_.load())
-					return std::future<task_result_t<task_t, _Func, _Args...>>{};
+					return std::future<task_result_t<_Func, _Args...>>{};
 
 				auto future = use_task<task_t>()(schedule_, std::forward<_Func>(func), std::forward<_Args>(args)...);
 
@@ -60,10 +55,7 @@ namespace thread_pool
 
 					ternimate_cv_.notify_all();
 
-					cv_.wait(lk, [this] 
-						{
-							return !schedule_.empty() || is_shutdown_;
-						});
+					cv_.wait(lk, [this] { return !schedule_.empty() || is_shutdown_; });
 
 					if (is_shutdown_.load())
 						return false;
@@ -103,23 +95,16 @@ namespace thread_pool
 
 				auto self = this->shared_from_this();
 
-				ternimate_cv_.wait(lk, [self, this]()
-					{ 
-						return schedule_.empty() && active_thread_count_ == 0;
-					});
+				ternimate_cv_.wait(lk, [self, this]() { return schedule_.empty() && active_thread_count_ == 0; });
 			}
 
-			template<typename _Time>
+			template <typename _Time>
 			void wait_for(const _Time& tm)
-			{
+			{}
 
-			}
-
-			template<typename _Time>
+			template <typename _Time>
 			void wait_until(const _Time& tm)
-			{
-
-			}
+			{}
 
 			void work_complete()
 			{
@@ -130,7 +115,7 @@ namespace thread_pool
 
 			void close()
 			{
-				return Shutdown<pool_t>::shutdown(this->shared_from_this());
+				return _Shutdown<pool_t>::shutdown(this->shared_from_this());
 			}
 
 			void shutdown()
@@ -162,5 +147,5 @@ namespace thread_pool
 
 			std::size_t active_thread_count_;
 		};
-	}
-}
+	} // namespace impl
+} // namespace thread_pool

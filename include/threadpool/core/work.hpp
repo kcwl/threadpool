@@ -4,7 +4,7 @@
 
 namespace thread_pool
 {
-	namespace detail
+	namespace impl
 	{
 		template<typename Pool>
 		class work_thread : public std::enable_shared_from_this<work_thread<Pool>>
