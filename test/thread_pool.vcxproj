@@ -180,6 +180,7 @@
     <ClInclude Include="..\include\threadpool\shutdown\wait_until.hpp" />
     <ClInclude Include="..\include\threadpool\task.hpp" />
     <ClInclude Include="..\include\threadpool.hpp" />
+    <ClInclude Include="pool.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\threadpool\schedule\multi_fifo.hpp" />

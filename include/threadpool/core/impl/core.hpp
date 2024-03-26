@@ -40,7 +40,7 @@ namespace threadpool
 
 				auto future = use_task<task_t>()(schedule_, std::forward<_Func>(func), std::forward<_Args>(args)...);
 
-				cv_.notify_one();
+				cv_.notify_all();
 
 				return future;
 			}
@@ -49,25 +49,25 @@ namespace threadpool
 			{
 				std::unique_lock lk(mutex_);
 
-				while (schedule_.empty())
+				if (schedule_.empty())
 				{
-					active_thread_count_--;
-
 					ternimate_cv_.notify_all();
 
 					cv_.wait(lk, [this] { return !schedule_.empty() || is_shutdown_; });
 
 					if (is_shutdown_.load())
 						return false;
-
-					active_thread_count_++;
 				}
+
+				active_thread_count_++;
 
 				task_t task{};
 
 				schedule_.pop(task);
 
 				task();
+
+				active_thread_count_--;
 
 				return true;
 			}
@@ -80,8 +80,6 @@ namespace threadpool
 				{
 					iter.reset(new thread_t(this->shared_from_this()));
 				}
-
-				active_thread_count_ = thread_size_;
 			}
 
 			void clear()

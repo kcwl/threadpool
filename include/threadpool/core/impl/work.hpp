@@ -19,8 +19,7 @@ namespace threadpool
 		public:
 			void run()
 			{
-				while (pool_ptr_->execute())
-					;
+				while (pool_ptr_->execute());
 
 				pool_ptr_->work_complete();
 			}

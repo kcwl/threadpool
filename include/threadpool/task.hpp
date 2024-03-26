@@ -9,6 +9,9 @@ namespace threadpool
 		class basic_task
 		{
 		public:
+			using function_t = std::function<_Result(_Args...)>;
+
+		public:
 			basic_task() = default;
 
 			virtual ~basic_task() = default;
@@ -40,21 +43,29 @@ namespace threadpool
 			std::function<_Result(_Args...)> func_;
 		};
 
-		template <typename Func>
-		class basic_priority_task : public basic_task<Func>
+		template <typename _Result, typename... _Args>
+		class basic_priority_task : public basic_task<_Result, _Args...>
 		{
+			using base_type = basic_task<_Result, _Args...>;
+
+			using typename base_type::function_t;
 		public:
 			basic_priority_task() = default;
 
-			basic_priority_task(Func&& f, std::size_t&& priority)
-				: basic_task<Func>(std::forward<Func>(f))
-				, priority_(priority)
+			basic_priority_task(function_t&& f)
+				: base_type(std::forward<function_t>(f))
+				, priority_()
 			{}
 
 		public:
 			bool operator<(const basic_priority_task& rhs) const
 			{
 				return priority_ < rhs.priority_;
+			}
+
+			void set_priority(std::size_t priority)
+			{
+				priority_ = priority;
 			}
 
 		private:

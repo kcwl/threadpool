@@ -55,7 +55,7 @@ namespace threadpool
 		std::size_t find_less()
 		{
 			std::size_t total{};
-			int index = 0;
+			std::size_t index = 0;
 
 			for (std::size_t i = 0; i < queues_.size(); ++i)
 			{

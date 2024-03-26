@@ -8,7 +8,6 @@
 #include "threadpool/shutdown/wait_all.hpp"
 #include "threadpool/shutdown/wait_for.hpp"
 #include "threadpool/shutdown/wait_until.hpp"
-#include "threadpool/task.hpp"
 
 namespace threadpool
 {
