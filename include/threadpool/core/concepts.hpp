@@ -1,22 +1,11 @@
 #pragma once
+#include <functional>
 #include <future>
 #include <memory>
 #include <type_traits>
 
 namespace thread_pool
 {
-	namespace impl
-	{
-		template <typename _Func, typename... _Args>
-		struct task_result
-		{
-			using type = std::invoke_result_t<_Func, _Args...>;
-		};
-	} // namespace impl
-
-	template <typename _Func, typename... _Args>
-	using task_result_t = impl::task_result<_Func, _Args...>::type;
-
 	template <typename _Task>
 	struct use_task
 	{
