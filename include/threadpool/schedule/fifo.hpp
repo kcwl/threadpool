@@ -45,4 +45,4 @@ namespace thread_pool
 	private:
 		std::queue<_Task> queue_;
 	};
-}
+} // namespace thread_pool

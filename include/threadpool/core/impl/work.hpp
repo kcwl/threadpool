@@ -6,11 +6,11 @@ namespace thread_pool
 {
 	namespace impl
 	{
-		template <typename Pool>
-		class work_thread : public std::enable_shared_from_this<work_thread<Pool>>
+		template <typename _Pool>
+		class work_thread : public std::enable_shared_from_this<work_thread<_Pool>>
 		{
 		public:
-			work_thread(std::shared_ptr<Pool> pool_ptr)
+			work_thread(std::shared_ptr<_Pool> pool_ptr)
 				: pool_ptr_(pool_ptr)
 			{
 				thread_ptr_.reset(new std::thread([&] { run(); }));
@@ -31,7 +31,7 @@ namespace thread_pool
 			}
 
 		private:
-			std::shared_ptr<Pool> pool_ptr_;
+			std::shared_ptr<_Pool> pool_ptr_;
 
 			std::shared_ptr<std::thread> thread_ptr_;
 		};

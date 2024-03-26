@@ -70,24 +70,6 @@ namespace thread_pool
 			return index;
 		}
 
-		std::size_t find_large()
-		{
-			std::size_t total{};
-			int index = 0;
-
-			for (std::size_t i = 0; i < queues_.size(); ++i)
-			{
-				if (queues_[i].size() < total)
-					continue;
-
-				total = queues_[i].size();
-
-				index = i;
-			}
-
-			return index;
-		}
-
 	private:
 		std::vector<std::queue<_Task>> queues_;
 	};
