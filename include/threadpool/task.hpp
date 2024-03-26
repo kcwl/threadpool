@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 
-namespace thread_pool
+namespace threadpool
 {
 	namespace impl
 	{
@@ -65,4 +65,4 @@ namespace thread_pool
 	using default_task = impl::basic_task<void>;
 
 	using default_priority_task = impl::basic_priority_task<void>;
-} // namespace thread_pool
+} // namespace threadpool

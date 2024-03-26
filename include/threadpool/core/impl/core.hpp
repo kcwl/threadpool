@@ -9,7 +9,7 @@
 #include <mutex>
 #include <vector>
 
-namespace thread_pool
+namespace threadpool
 {
 	namespace impl
 	{
@@ -162,4 +162,4 @@ namespace thread_pool
 			std::atomic_size_t active_thread_count_;
 		};
 	} // namespace impl
-} // namespace thread_pool
+} // namespace threadpool

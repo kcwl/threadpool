@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-namespace thread_pool
+namespace threadpool
 {
 	template <typename _Pool>
 	struct wait_for_all_task
@@ -12,4 +12,4 @@ namespace thread_pool
 			pool->shutdown();
 		}
 	};
-} // namespace thread_pool
+} // namespace threadpool

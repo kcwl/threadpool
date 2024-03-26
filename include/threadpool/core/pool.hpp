@@ -1,7 +1,7 @@
 #pragma once
 #include "impl/core.hpp"
 
-namespace thread_pool
+namespace threadpool
 {
 	template <typename _Task, template <typename> typename _Schedule, template <typename> typename _Shutdown>
 	class basic_thread_pool
@@ -59,4 +59,4 @@ namespace thread_pool
 	private:
 		std::shared_ptr<core_t> core_ptr_;
 	};
-} // namespace thread_pool
+} // namespace threadpool

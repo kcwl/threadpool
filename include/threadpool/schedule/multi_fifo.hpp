@@ -2,7 +2,7 @@
 #include <deque>
 #include <random>
 
-namespace thread_pool
+namespace threadpool
 {
 	template <typename _Task>
 	class multi_fifo_schedule

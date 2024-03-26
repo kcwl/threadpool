@@ -3,7 +3,7 @@
 #include <functional>
 
 
-namespace thread_pool
+namespace threadpool
 {
 	template<typename _Pool, typename Runable>
 	bool schedule(_Pool& pool, const std::shared_ptr<Runable>& obj)

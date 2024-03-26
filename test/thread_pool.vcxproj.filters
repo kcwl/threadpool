@@ -44,7 +44,7 @@
     <ClInclude Include="..\include\threadpool\shutdown\wait_all.hpp">
       <Filter>include\threadpool\shutdown</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\thread_pool.hpp">
+    <ClInclude Include="..\include\threadpool.hpp">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\threadpool\task.hpp">

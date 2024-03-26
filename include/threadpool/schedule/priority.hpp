@@ -2,7 +2,7 @@
 #include <functional>
 #include <queue>
 
-namespace thread_pool
+namespace threadpool
 {
 	template <typename _Task>
 	class priority_scheduler
@@ -50,4 +50,4 @@ namespace thread_pool
 	
 
 	
-} // namespace thread_pool
+} // namespace threadpool

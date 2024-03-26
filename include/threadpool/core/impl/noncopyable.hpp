@@ -1,6 +1,6 @@
 #pragma once
 
-namespace thread_pool
+namespace threadpool
 {
 	namespace impl
 	{
@@ -15,4 +15,4 @@ namespace thread_pool
 			noncopyable& operator=(const noncopyable&) = delete;
 		};
 	} // namespace impl
-} // namespace thread_pool
+} // namespace threadpool

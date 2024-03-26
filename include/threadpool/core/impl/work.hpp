@@ -2,7 +2,7 @@
 #include <memory>
 #include <thread>
 
-namespace thread_pool
+namespace threadpool
 {
 	namespace impl
 	{
@@ -36,4 +36,4 @@ namespace thread_pool
 			std::shared_ptr<std::thread> thread_ptr_;
 		};
 	} // namespace impl
-} // namespace thread_pool
+} // namespace threadpool

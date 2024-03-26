@@ -1,7 +1,7 @@
 #pragma once
 #include <queue>
 
-namespace thread_pool
+namespace threadpool
 {
 	template <typename _Task>
 	class fifo_scheduler
@@ -45,4 +45,4 @@ namespace thread_pool
 	private:
 		std::queue<_Task> queue_;
 	};
-} // namespace thread_pool
+} // namespace threadpool

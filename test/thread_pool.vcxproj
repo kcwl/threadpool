@@ -179,7 +179,7 @@
     <ClInclude Include="..\include\threadpool\shutdown\wait_for.hpp" />
     <ClInclude Include="..\include\threadpool\shutdown\wait_until.hpp" />
     <ClInclude Include="..\include\threadpool\task.hpp" />
-    <ClInclude Include="..\include\thread_pool.hpp" />
+    <ClInclude Include="..\include\threadpool.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\threadpool\schedule\multi_fifo.hpp" />

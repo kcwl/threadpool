@@ -4,7 +4,7 @@
 #include <memory>
 #include <type_traits>
 
-namespace thread_pool
+namespace threadpool
 {
 	namespace impl
 	{
@@ -30,4 +30,4 @@ namespace thread_pool
 			}
 		};
 	} // namespace impl
-} // namespace thread_pool
+} // namespace threadpool

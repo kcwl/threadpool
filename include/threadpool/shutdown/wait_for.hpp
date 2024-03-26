@@ -2,7 +2,7 @@
 #include <memory>
 #include <chrono>
 
-namespace thread_pool
+namespace threadpool
 {
 	template <typename _Pool>
 	struct wait_task_for

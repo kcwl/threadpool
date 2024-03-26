@@ -3,7 +3,7 @@
 
 TEST(threadpool, normal)
 {
-	thread_pool::pool pl{ 10 };
+	threadpool::pool pl{ 10 };
 
 	auto future = pl.schedule(
 		[]()
