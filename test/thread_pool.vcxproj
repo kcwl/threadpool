@@ -166,12 +166,11 @@
     <ClCompile Include="thread_pool.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\threadpool\core\concepts.hpp" />
-    <ClInclude Include="..\include\threadpool\core\hash_node.hpp" />
-    <ClInclude Include="..\include\threadpool\core\noncopyable.hpp" />
-    <ClInclude Include="..\include\threadpool\core\core.hpp" />
+    <ClInclude Include="..\include\threadpool\core\impl\concepts.hpp" />
+    <ClInclude Include="..\include\threadpool\core\impl\noncopyable.hpp" />
+    <ClInclude Include="..\include\threadpool\core\impl\core.hpp" />
     <ClInclude Include="..\include\threadpool\core\pool.hpp" />
-    <ClInclude Include="..\include\threadpool\core\work.hpp" />
+    <ClInclude Include="..\include\threadpool\core\impl\work.hpp" />
     <ClInclude Include="..\include\threadpool\shutdown\wait_all.hpp" />
     <ClInclude Include="..\include\threadpool\adaptors.hpp" />
     <ClInclude Include="..\include\threadpool\schedule\fifo.hpp" />

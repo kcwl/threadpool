@@ -28,6 +28,9 @@
     <Filter Include="include\threadpool\shutdown">
       <UniqueIdentifier>{0b43c296-4357-4023-87ce-8f8c794907ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\threadpool\core\impl">
+      <UniqueIdentifier>{3a8efbde-9324-43eb-82c4-2d1186e240e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="thread_pool.cpp">
@@ -37,18 +40,6 @@
   <ItemGroup>
     <ClInclude Include="..\include\threadpool\adaptors.hpp">
       <Filter>include\threadpool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\threadpool\core\hash_node.hpp">
-      <Filter>include\threadpool\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\threadpool\core\noncopyable.hpp">
-      <Filter>include\threadpool\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\threadpool\core\core.hpp">
-      <Filter>include\threadpool\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\threadpool\core\work.hpp">
-      <Filter>include\threadpool\core</Filter>
     </ClInclude>
     <ClInclude Include="..\include\threadpool\shutdown\wait_all.hpp">
       <Filter>include\threadpool\shutdown</Filter>
@@ -60,9 +51,6 @@
       <Filter>include\threadpool</Filter>
     </ClInclude>
     <ClInclude Include="..\include\threadpool\core\pool.hpp">
-      <Filter>include\threadpool\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\threadpool\core\concepts.hpp">
       <Filter>include\threadpool\core</Filter>
     </ClInclude>
     <ClInclude Include="..\include\threadpool\schedule\priority.hpp">
@@ -79,6 +67,18 @@
     </ClInclude>
     <ClInclude Include="..\include\threadpool\shutdown\wait_active.hpp">
       <Filter>include\threadpool\shutdown</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\core\impl\concepts.hpp">
+      <Filter>include\threadpool\core\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\core\impl\noncopyable.hpp">
+      <Filter>include\threadpool\core\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\core\impl\work.hpp">
+      <Filter>include\threadpool\core\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\core\impl\core.hpp">
+      <Filter>include\threadpool\core\impl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

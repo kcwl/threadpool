@@ -1,5 +1,5 @@
 #pragma once
-#include "core.hpp"
+#include "impl/core.hpp"
 
 namespace thread_pool
 {
