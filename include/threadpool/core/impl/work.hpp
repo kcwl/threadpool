@@ -20,12 +20,13 @@ namespace threadpool
 			void run()
 			{
 				while (pool_ptr_->execute());
-
-				pool_ptr_->work_complete();
 			}
 
 			void join()
 			{
+				if (!thread_ptr_->joinable())
+					return;
+
 				return thread_ptr_->join();
 			}
 

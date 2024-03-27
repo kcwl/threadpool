@@ -59,12 +59,6 @@
     <ClInclude Include="..\include\threadpool\schedule\fifo.hpp">
       <Filter>include\threadpool\schedule</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\threadpool\shutdown\wait_for.hpp">
-      <Filter>include\threadpool\shutdown</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\threadpool\shutdown\wait_until.hpp">
-      <Filter>include\threadpool\shutdown</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\threadpool\shutdown\wait_active.hpp">
       <Filter>include\threadpool\shutdown</Filter>
     </ClInclude>
@@ -81,6 +75,9 @@
       <Filter>include\threadpool\core\impl</Filter>
     </ClInclude>
     <ClInclude Include="pool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="shutdown.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

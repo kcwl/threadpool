@@ -6,8 +6,6 @@
 #include "threadpool/schedule/priority.hpp"
 #include "threadpool/shutdown/wait_active.hpp"
 #include "threadpool/shutdown/wait_all.hpp"
-#include "threadpool/shutdown/wait_for.hpp"
-#include "threadpool/shutdown/wait_until.hpp"
 
 namespace threadpool
 {

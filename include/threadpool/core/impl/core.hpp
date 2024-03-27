@@ -8,6 +8,7 @@
 #include <memory>
 #include <mutex>
 #include <vector>
+#include <shared_mutex>
 
 namespace threadpool
 {
@@ -54,12 +55,7 @@ namespace threadpool
 					ternimate_cv_.notify_all();
 
 					cv_.wait(lk, [this] { return !schedule_.empty() || is_shutdown_; });
-
-					if (is_shutdown_.load())
-						return false;
 				}
-
-				active_thread_count_++;
 
 				task_t task{};
 
@@ -67,9 +63,7 @@ namespace threadpool
 
 				task();
 
-				active_thread_count_--;
-
-				return true;
+				return !is_shutdown_;
 			}
 
 			void start()
@@ -84,8 +78,6 @@ namespace threadpool
 
 			void clear()
 			{
-				std::unique_lock lk(mutex_);
-
 				return schedule_.clear();
 			}
 
@@ -95,34 +87,7 @@ namespace threadpool
 
 				auto self = this->shared_from_this();
 
-				ternimate_cv_.wait(lk, [self, this]() { return schedule_.empty() && active_thread_count_ == 0; });
-			}
-
-			template <typename _Time>
-			void wait_for(const _Time& tm)
-			{
-				std::unique_lock lk(mutex_);
-
-				auto self = this->shared_from_this();
-
-				ternimate_cv_.wait_for(lk, tm,
-									   [self, this]() { return schedule_.empty() && active_thread_count_ == 0; });
-			}
-
-			template <typename _Time>
-			void wait_until(const _Time& tm)
-			{
-				std::unique_lock lk(mutex_);
-
-				auto self = this->shared_from_this();
-
-				ternimate_cv_.wait_until(lk, tm,
-										 [self, this]() { return schedule_.empty() && active_thread_count_ == 0; });
-			}
-
-			void work_complete()
-			{
-				active_thread_count_--;
+				ternimate_cv_.wait(lk, [self, this]() { return schedule_.empty(); });
 			}
 
 			void close()
@@ -157,7 +122,7 @@ namespace threadpool
 
 			std::condition_variable_any ternimate_cv_;
 
-			std::atomic_size_t active_thread_count_;
+			std::chrono::system_clock::duration dura_;
 		};
 	} // namespace impl
 } // namespace threadpool

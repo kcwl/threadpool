@@ -152,14 +152,17 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\include;F:\git\elastic\googletest\googletest\include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\git\elastic\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -176,11 +179,10 @@
     <ClInclude Include="..\include\threadpool\schedule\fifo.hpp" />
     <ClInclude Include="..\include\threadpool\schedule\priority.hpp" />
     <ClInclude Include="..\include\threadpool\shutdown\wait_active.hpp" />
-    <ClInclude Include="..\include\threadpool\shutdown\wait_for.hpp" />
-    <ClInclude Include="..\include\threadpool\shutdown\wait_until.hpp" />
     <ClInclude Include="..\include\threadpool\task.hpp" />
     <ClInclude Include="..\include\threadpool.hpp" />
     <ClInclude Include="pool.h" />
+    <ClInclude Include="shutdown.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\include\threadpool\schedule\multi_fifo.hpp" />
