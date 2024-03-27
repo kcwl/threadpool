@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{7f9214a5-d510-486a-be73-9b53fc6b1482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\threadpool">
+      <UniqueIdentifier>{7f83bcb3-605b-4504-92c2-b3e18111c1e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\threadpool\core">
+      <UniqueIdentifier>{384604d9-205e-4466-a505-db7647b57865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\threadpool\schedule">
+      <UniqueIdentifier>{3be9d373-75b4-4e02-abe0-b8417b9a77bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\threadpool\shutdown">
+      <UniqueIdentifier>{0b43c296-4357-4023-87ce-8f8c794907ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\threadpool\core\impl">
+      <UniqueIdentifier>{3a8efbde-9324-43eb-82c4-2d1186e240e8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="thread_pool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\threadpool\adaptors.hpp">
+      <Filter>include\threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\shutdown\wait_all.hpp">
+      <Filter>include\threadpool\shutdown</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\task.hpp">
+      <Filter>include\threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\core\pool.hpp">
+      <Filter>include\threadpool\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\schedule\priority.hpp">
+      <Filter>include\threadpool\schedule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\schedule\fifo.hpp">
+      <Filter>include\threadpool\schedule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\shutdown\wait_active.hpp">
+      <Filter>include\threadpool\shutdown</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\core\impl\concepts.hpp">
+      <Filter>include\threadpool\core\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\core\impl\noncopyable.hpp">
+      <Filter>include\threadpool\core\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\core\impl\work.hpp">
+      <Filter>include\threadpool\core\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\threadpool\core\impl\core.hpp">
+      <Filter>include\threadpool\core\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="pool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="shutdown.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\include\threadpool\schedule\multi_fifo.hpp">
+      <Filter>include\threadpool\schedule</Filter>
+    </None>
+  </ItemGroup>
+</Project>
